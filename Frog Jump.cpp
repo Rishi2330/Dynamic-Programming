@@ -32,3 +32,23 @@ int main(){
     vector<int> arr = {30,10,60,10,60,50};
     cout << frogJump(6,arr);
 }
+
+// space optimization
+class Solution {
+  public:
+    int minCost(vector<int>& height) {
+        // Code here
+        int n = height.size();
+        int p1 = 0;
+        int p2 = 0;
+        for (int i = 1; i < n; i++) {
+            int oneStep = p1 + abs(height[i] - height[i - 1]);
+            int twoStep = INT_MAX;
+            if (i > 1) twoStep = p2 + abs(height[i] - height[i - 2]);        
+            int curr = min(oneStep, twoStep);
+            p2 = p1;
+            p1 = curr;
+        }
+        return p1;
+    }
+};
