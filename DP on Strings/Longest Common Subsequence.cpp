@@ -64,3 +64,23 @@ class Solution {
         return dp[n][m];
     }
 };
+
+// Space Optimization
+class Solution {
+  public:
+    int lcs(string &s1, string &s2) {
+        // code here
+        int n = s1.size(), m = s2.size();
+        vector<int> dp(m+1, 0);
+        for(int j=0; j<=m; j++) dp[j] = 0;
+        for(int i=1; i<=n; i++){
+            vector<int> temp(m+1, 0);
+            for(int j=1; j<=m; j++){
+                if(s1[i-1] == s2[j-1]) temp[j] = 1 + dp[j-1]; 
+                else temp[j] = max(dp[j], temp[j-1]);
+            }
+            dp = temp;
+        }
+        return dp[m];
+    }
+};
